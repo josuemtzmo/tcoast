@@ -1,0 +1,6 @@
+numpy
+xarray
+distributed
+netCDF4
+cmocean
+gsw
