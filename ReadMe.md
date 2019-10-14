@@ -50,15 +50,16 @@ property of dot products:
 
 ![Alt Text](https://github.com/josuemtzmo/tcoasts/blob/master/figures/p_vectors.png "Perpendicular Vectors" )
 
-![Alt Text](https://github.com/josuemtzmo/tcoasts/blob/master/figures/dot_product.png "Dot product" | height=100)
+
+<img height="100" alt="Dot product" src="https://github.com/josuemtzmo/tcoasts/blob/master/figures/dot_product.png">
 
 Then the new projected velocity vector corresponds to:
 
-![Alt Text](https://github.com/josuemtzmo/tcoasts/blob/master/figures/projected_vector.png "Perpendicular Vectors" | height=100)
+<img height="100" alt="Perpendicular Vectors" src="https://github.com/josuemtzmo/tcoasts/blob/master/figures/projected_vector.png">
 
 Then the transport is computed using:
 
-![Alt Text](https://github.com/josuemtzmo/tcoasts/blob/master/figures/transport.png "Transport" | height=100)
+<img height="100" alt="Transport" src="https://github.com/josuemtzmo/tcoasts/blob/master/figures/transport.png">
 
 Additional constrains can be added in which the transport will be masked 
 by tracers. For example, figure 2 shows the transport of passive tracers at the 
