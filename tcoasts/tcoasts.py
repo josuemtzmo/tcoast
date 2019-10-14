@@ -3,6 +3,7 @@ import xarray as xr
 import subprocess
 import numpy as np
 import os
+import matplotlib as plt
 # Import utils and decorators
 from tcoasts.utils.utils import *
 from tcoasts.utils.decorators import _file_exists
