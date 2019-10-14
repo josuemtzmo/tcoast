@@ -48,20 +48,20 @@ vectors are computed at the center of each interpolated cell (Figure 1) and the
 interpolated velocity is projected over the normal by using the scalar projection 
 property of dot products:
 
-![Alt Text](https://github.com/Josue-Martinez-Moreno/tcoasts/blob/master/figures/p_vectors.png "Perpendicular Vectors")
+![Alt Text](https://github.com/josuemtzmo/tcoasts/blob/master/figures/p_vectors.png "Perpendicular Vectors")
 
-![Alt Text](https://github.com/Josue-Martinez-Moreno/tcoasts/blob/master/figures/dot_product.png "Perpendicular Vectors")
+![Alt Text](https://github.com/josuemtzmo/tcoasts/blob/master/figures/dot_product.png "Perpendicular Vectors")
 
 Then the new projected velocity vector corresponds to:
 
-![Alt Text](https://github.com/Josue-Martinez-Moreno/tcoasts/blob/master/figures/projected_vector.png "Perpendicular Vectors")
+![Alt Text](https://github.com/josuemtzmo/tcoasts/blob/master/figures/projected_vector.png "Perpendicular Vectors")
 
 Then the transport is computed using:
 
-![Alt Text](https://github.com/Josue-Martinez-Moreno/tcoasts/blob/master/figures/transport.png "Perpendicular Vectors")
+![Alt Text](https://github.com/josuemtzmo/tcoasts/blob/master/figures/transport.png "Perpendicular Vectors")
 
 Additional constrains can be added in which the transport will be masked 
 by tracers. For example, figure 2 shows the transport of passive tracers at the 
 Gulf of Mexico with concentrations larger than 10% ($C_0 = 1 mol/m^3$). 
 
-![Alt Text](https://github.com/Josue-Martinez-Moreno/tcoasts/blob/master/figures/t_ptracers.png "Perpendicular Vectors")
+![Alt Text](https://github.com/josuemtzmo/tcoasts/blob/master/figures/t_ptracers.png "Perpendicular Vectors")
