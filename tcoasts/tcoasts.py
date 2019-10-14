@@ -4,8 +4,8 @@ import subprocess
 import numpy as np
 import os
 # Import utils and decorators
-from tcoast.utils import *
-from tcoast.decorators import *
+from tcoasts.utils.utils import *
+from tcoasts.utils.decorators import _file_exists
 
 class TransportAlongCoast(object):
     '''
