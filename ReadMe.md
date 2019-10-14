@@ -1,4 +1,4 @@
-# tcoast (Transport Along Coast)
+# tcoasts (Transport Along Coast)
 
 
 | Travis CI (Python 3.6) | Read the Docs | Code Coverage |
@@ -14,20 +14,20 @@ refer to ReadTheDocs
 ## Get the code:
 
 1. Make a new directory where you want the repository.
-1. Clone the **tcoast** repository from Github. In the command prompt, type:
-`git clone https://github.com/Josue-Martinez-Moreno/tcoast.git`
+1. Clone the **tcoasts** repository from Github. In the command prompt, type:
+`git clone https://github.com/Josue-Martinez-Moreno/tcoasts.git`
 1. Install the package globally:
 `pip install -e .`
 This make the package an editable install so that it can be updated with future 
-additions to **tcoast**. To instead install the package locally:
+additions to **tcoasts**. To instead install the package locally:
 `pip install --user .`
 
 ## Update the code:
 
-1. Move into your **tcoast**  directory.
+1. Move into your **tcoasts**  directory.
 1. Update your GitHub repository.
 `git pull`
-1. Edit your install of **tcoast** .
+1. Edit your install of **tcoasts** .
 `pip install -e .` 
 or
 `pip install --force-reinstall -e .`
@@ -48,7 +48,7 @@ vectors are computed at the center of each interpolated cell (Figure 1) and the
 interpolated velocity is projected over the normal by using the scalar projection 
 property of dot products:
 
-![Alt Text](https://github.com/Josue-Martinez-Moreno/tcoast/blob/master/figures/p_vectors.png "Perpendicular Vectors")
+![Alt Text](https://github.com/Josue-Martinez-Moreno/tcoasts/blob/master/figures/p_vectors.png "Perpendicular Vectors")
 
 \begin{equation}
     \vec(u)\cdot\hat{n} = u*cos(\theta) + v*sin(\theta)
@@ -70,4 +70,4 @@ Additional constrains can be added in which the transport will be masked
 by tracers. For example, figure 2 shows the transport of passive tracers at the 
 Gulf of Mexico with concentrations larger than 10% ($C_0 = 1 mol/m^3$). 
 
-![Alt Text](https://github.com/Josue-Martinez-Moreno/tcoast/blob/master/figures/t_ptracers.png "Perpendicular Vectors")
+![Alt Text](https://github.com/Josue-Martinez-Moreno/tcoasts/blob/master/figures/t_ptracers.png "Perpendicular Vectors")
