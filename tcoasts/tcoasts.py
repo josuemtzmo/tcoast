@@ -8,6 +8,7 @@ import pylab as plt
 from tcoasts.utils.utils import *
 from tcoasts.utils.decorators import _file_exists
 
+
 class TransportAlongCoast(object):
     '''
     
@@ -147,7 +148,7 @@ class TransportAlongCoast(object):
         print('Opening velocity files')
         # Load data.
         u = self.loaddata(file=ufiles,var='U',dataset=dataset,**xr_openmf_defaults)
-        v = self.loaddata(file=vfiles,var='V',dataset=dataset,*xr_openmf_defaults)
+        v = self.loaddata(file=vfiles,var='V',dataset=dataset,**xr_openmf_defaults)
         # Make sure the shape of the velocity fields are the same.
         if u.shape != v.shape:
             raise ValueError('The velocity fields should have the same shape.')
@@ -223,8 +224,8 @@ class TransportAlongCoast(object):
         # Area of each grid cell.
         dA = self.delta_area(bottom_vel)
         # Multiplication of vector sum and the dA. Flux integral.
-        transport=(u_normal+v_normal)*dA
-        return transport
+        self.transport=(u_normal+v_normal)*dA
+        return self.transport.sum(dim={'depth','n'})
     
     def delta_area(self,bottom_vel):
         # Compute perpendicular vectors.
@@ -240,25 +241,23 @@ class TransportAlongCoast(object):
         threshold [ float / list ]
             Threshold to scale transport with tracers used for tracer.
         method     [ string ] 
-            'greater' will compute the transport for all the values larger 
-                      than the threshold in the tracer field.
-            'smaller' will compute the transport for all the values smaller 
-                      than the threshold in the tracer field.
-            'both' will compute the transport for all the values within 
-                      the threshold interval in the tracer field.
+            'greater' will compute the transport for all the values larger than the threshold in the tracer field.
+            'smaller' will compute the transport for all the values smaller than the threshold in the tracer field.
+            'both' will compute the transport for all the values within the threshold interval in the tracer field.
         '''
         if type(threshold)==list:
             threshold=np.array(threshold)
-        
+        # TO DO: If u vertical grid != tracer vertical grid then interpolate tracer to velocity grid.
         if method=='smaller' and type(threshold)==float:
-            self.transport.where(self.interp_data.tracer<threshold,np.nan)
+            scaled_transport=self.transport.where(self.interp_data.tracer.isel(depth=slice(0,-1))<threshold)
         elif method=='greater' and type(threshold)==float:
-            self.transport.where(self.interp_data.tracer>threshold,np.nan)
+            scaled_transport=self.transport.where(self.interp_data.tracer.isel(depth=slice(0,-1))>threshold)
         elif method=='both' and type(threshold)==np.ndarray:
-            self.transport.where(self.interp_data.tracer>threshold.min()).where(self.interp_data.tracer<threshold.max())
+            scaled_transport=self.transport.where(self.interp_data.tracer.isel(depth=slice(0,-1))>threshold.min()).where(self.interp_data.tracer<threshold.max())
         else:
             raise ValueError('''Threshold must be an float or list/array in which the 
-                            min and max value will define the threshold interval.''')
+                             min and max value will define the threshold interval.''')
+        return scaled_transport.sum(dim={'depth','n'})
     
     def loaddata(self,file=None,var='U',dataset=None,**kwargs):
         # Check if file or dataset is defined.
@@ -341,4 +340,3 @@ class TransportAlongCoast(object):
             plt.ylim(y_perp[transect].min()-ydelta,y_perp[transect].max()+ydelta)
         plt.gca().set_aspect('equal', adjustable='box')
         return fig,ax
-    
