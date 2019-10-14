@@ -50,21 +50,15 @@ property of dot products:
 
 ![Alt Text](https://github.com/Josue-Martinez-Moreno/tcoasts/blob/master/figures/p_vectors.png "Perpendicular Vectors")
 
-\begin{equation}
-    \vec(u)\cdot\hat{n} = u*cos(\theta) + v*sin(\theta)
-\end{equation}
+![Alt Text](https://github.com/Josue-Martinez-Moreno/tcoasts/blob/master/figures/dot_product.png "Perpendicular Vectors")
 
 Then the new projected velocity vector corresponds to:
 
-\begin{equation}
-    \vec(u) = \left[\vec(u)\cdot\hat{n}\right]\cdot\hat{n}
-\end{equation}
+![Alt Text](https://github.com/Josue-Martinez-Moreno/tcoasts/blob/master/figures/projected_vector.png "Perpendicular Vectors")
 
 Then the transport is computed using:
 
-\begin{equation}
-    T = \int \int u dxdz
-\end{equation}
+![Alt Text](https://github.com/Josue-Martinez-Moreno/tcoasts/blob/master/figures/transport.png "Perpendicular Vectors")
 
 Additional constrains can be added in which the transport will be masked 
 by tracers. For example, figure 2 shows the transport of passive tracers at the 
