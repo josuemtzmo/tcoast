@@ -59,7 +59,7 @@ Then the new projected velocity vector corresponds to:
 
 Then the transport is computed using:
 
-<img height="30" alt="Transport" src="https://github.com/josuemtzmo/tcoasts/blob/master/figures/transport.png">
+<img height="50" alt="Transport" src="https://github.com/josuemtzmo/tcoasts/blob/master/figures/transport.png">
 
 Additional constrains can be added in which the transport will be masked 
 by tracers. For example, figure 2 shows the transport of passive tracers at the 
