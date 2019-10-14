@@ -29,7 +29,7 @@ class TransportAlongCoast(object):
     def extract_contour(self):
         # Load contour file.
         if './' not in self.contour_file:
-            self.contour_file=os.path.join(path,self.contour_file)
+            self.contour_file=os.path.join(self.path,self.contour_file)
         if os.path.isfile(self.contour_file):
             self.coastline=np.loadtxt(self.contour_file)
         else:
@@ -73,11 +73,14 @@ class TransportAlongCoast(object):
         Input:
         
             method: [ mean ]
-                smooth  - computes the mean over X number of slopes and projects the perpendicular vector
+                smooth  - computes the mean over X number of slopes and 
+                          projects the perpendicular vector
                 byseg   - computes the mean over each segment of the slope
-                local   - computes the the perpendicular vector using the 2 adjacent locations
-                ext     - computes the perpendicular vector using the slope at x cells to the left and 
-                          right of the desired perpendicular location.
+                local   - computes the the perpendicular vector using the 2 
+                          adjacent locations
+                ext     - computes the perpendicular vector using the slope at 
+                          x cells to the left and right of the desired 
+                          perpendicular location.
         
         '''
         index_perp=self.perploc()
@@ -241,9 +244,12 @@ class TransportAlongCoast(object):
         threshold [ float / list ]
             Threshold to scale transport with tracers used for tracer.
         method     [ string ] 
-            'greater' will compute the transport for all the values larger than the threshold in the tracer field.
-            'smaller' will compute the transport for all the values smaller than the threshold in the tracer field.
-            'both' will compute the transport for all the values within the threshold interval in the tracer field.
+            'greater' will compute the transport for all the values larger 
+                      than the threshold in the tracer field.
+            'smaller' will compute the transport for all the values smaller 
+                      than the threshold in the tracer field.
+            'both' will compute the transport for all the values within 
+                      the threshold interval in the tracer field.
         '''
         if type(threshold)==list:
             threshold=np.array(threshold)
@@ -274,7 +280,7 @@ class TransportAlongCoast(object):
         elif dataset != None and file == None:
             data=dataset
         else:
-            raise ValueError('Only on of the arguments [ file or dataset ] can be defined.')
+            raise ValueError('Only on of the arguments [file or dataset] can be defined.')
         # Extract variables from dataset
         varname= [key for key,items in data.data_vars.items()]
         # Rename variable for easier manipulation.
