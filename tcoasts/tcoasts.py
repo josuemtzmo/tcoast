@@ -234,16 +234,30 @@ class TransportAlongCoast(object):
         delta_x=gsw.distance(x_perp_all,y_perp_all)
         return delta_z*delta_x
     
-    def mask_transport(self):
+    def mask_transport(self,threshold,method='greater'):
         '''
         threshold [ float / list ]
             Threshold to scale transport with tracers used for tracer.
-        units     [ string ] 
-            units for threshold, valid values include percentage ['%'] 
-            and the field units [''].
+        method     [ string ] 
+            'greater' will compute the transport for all the values larger 
+                      than the threshold in the tracer field.
+            'smaller' will compute the transport for all the values smaller 
+                      than the threshold in the tracer field.
+            'both' will compute the transport for all the values within 
+                      the threshold interval in the tracer field.
         '''
+        if type(threshold)==list:
+            threshold=np.array(threshold)
         
-        pass
+        if method=='smaller' and type(threshold)==float:
+            self.transport.where(self.interp_data.tracer<threshold,np.nan)
+        elif method=='greater' and type(threshold)==float:
+            self.transport.where(self.interp_data.tracer>threshold,np.nan)
+        elif method=='both' and type(threshold)==np.ndarray:
+            self.transport.where(self.interp_data.tracer>threshold.min()).where(self.interp_data.tracer<threshold.max())
+        else:
+            raise ValueError('''Threshold must be an float or list/array in which the 
+                            min and max value will define the threshold interval.''')
     
     def loaddata(self,file=None,var='U',dataset=None,**kwargs):
         # Check if file or dataset is defined.
