@@ -3,7 +3,7 @@
 
 | Travis CI (Python 3.6) | Read the Docs | Code Coverage |
 |:----------------------:|:-------------:|:-------------:|
-|  |  |  |
+| [![Build Status](https://travis-ci.org/josuemtzmo/tcoasts.svg?branch=master)](https://travis-ci.org/josuemtzmo/tcoasts) | [![Documentation Status](https://readthedocs.org/projects/tcoasts/badge/?version=latest)](https://tcoasts.readthedocs.io/en/latest/?badge=latest) | [![codecov](https://codecov.io/gh/josuemtzmo/tcoasts/branch/master/graph/badge.svg)](https://codecov.io/gh/josuemtzmo/tcoasts) |
 
 **Python 3**
 
