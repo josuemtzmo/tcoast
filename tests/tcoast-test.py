@@ -7,7 +7,7 @@ import gsw
 package_path=tcoasts.__file__ .split('tcoasts.py')[0]
 
 folder=os.path.join(package_path,'../examples/data/')
-contourfile='GoM_coastLine.xy'
+contourfile='GoM_coastline.xy'
 
 @pytest.mark.ttcoasts
 def test_perpendicularity():
