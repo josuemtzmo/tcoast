@@ -5,3 +5,4 @@ netCDF4
 cmocean
 gsw
 dask
+scipy

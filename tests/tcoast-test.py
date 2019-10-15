@@ -12,7 +12,6 @@ contourfile='GoM_coastline.xy'
 @pytest.mark.ttcoasts
 def test_perpendicularity():
     dotp=perpendicularity(method='smooth')
-    print(dotp)
     assert (dotp<1e-10).all() 
 
 def perpendicularity(method):
