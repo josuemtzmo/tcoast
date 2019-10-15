@@ -13,7 +13,7 @@ install:
   - conda create -q -n test-tcoasts python=$TRAVIS_PYTHON_VERSION
   - source activate test-tcoasts
   - conda install -c conda-forge --file ./install_requirements.txt
-  - conda install pytest
+  - conda install pytest pytest-cov
   - pip install -e .
 script: pytest tests/tcoast-test.py -m ttcoasts --cov=tcoasts
 after_success:
