@@ -37,7 +37,8 @@ or, for local installation:
 ## Test the code:
 
 Execute:
-pytest -m tcoasts --cov=tcoasts
+
+`pytest -m tcoasts --cov=tcoasts`
 
 ## Maths:
 
@@ -63,6 +64,6 @@ Then the transport is computed using:
 
 Additional constrains can be added in which the transport will be masked 
 by tracers. For example, figure 2 shows the transport of passive tracers at the 
-Gulf of Mexico with concentrations larger than 10% ($$C_0 = 1 mol/m^3$$). 
+Gulf of Mexico with concentrations larger than 10% (C_0 = 1 mol/m^3). 
 
 ![Alt Text](https://github.com/josuemtzmo/tcoasts/blob/master/figures/transport_total.png "Perpendicular Vectors")
