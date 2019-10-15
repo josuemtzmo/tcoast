@@ -15,7 +15,7 @@ install:
   - conda install -c conda-forge --file ./install_requirements.txt
   - conda install pytest
   - pip install -e .
-#script: pytest -m tcoasts --cov=tcoasts
+script: pytest tests/tcoast-test.py -m ttcoasts --cov=tcoasts
 after_success:
   -  bash <(curl -s https://codecov.io/bash)
 notifications:

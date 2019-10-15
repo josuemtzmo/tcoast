@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='tcoast',
+    name='tcoasts',
     version='1',
     description='Transport Along the Coast',
     url='https://github.com/Josue-Martinez-Moreno/tcoast',

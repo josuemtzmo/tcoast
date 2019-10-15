@@ -1,6 +1,7 @@
-numpy
+numpy > 1.16
 xarray
 distributed
 netCDF4
 cmocean
 gsw
+dask

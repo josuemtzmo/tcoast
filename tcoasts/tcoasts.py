@@ -145,8 +145,10 @@ class TransportAlongCoast(object):
         **kwargs inter2vector supports the all the  kwargs of xr.open_mfdataset.
         '''
         # xr load parameters
-        xr_openmf_defaults = {'concat_dim':'time','parallel':True,'combine':'nested'}
-        xr_openmf_defaults.update(kwargs)
+        xr_openmf_defaults={}
+        if '*' in ufiles and '*' in vfiles:
+            xr_openmf_defaults = {'concat_dim':'time','parallel':True,'combine':'nested'}
+            xr_openmf_defaults.update(kwargs)
 
         print('Opening velocity files')
         # Load data.
@@ -311,14 +313,14 @@ class TransportAlongCoast(object):
         # Scale perpendicular vector to desired distance self.length.
         scale=self.vector_scale(index_perp,perp_dict['Pvector']['angles'])
         # Gridded normal vector
-        x_norm=(np.squeeze(np.linspace(0,scale,self.length/self.n)[:,np.newaxis]*self.x_norm)
+        x_norm=(np.squeeze(np.linspace(0,scale,self.length//self.n)[:,np.newaxis]*self.x_norm)
                 +self.coastline[index_perp][:,0]).T+shift
-        y_norm=(np.squeeze(np.linspace(0,scale,self.length/self.n)[:,np.newaxis]*self.y_norm)
+        y_norm=(np.squeeze(np.linspace(0,scale,self.length//self.n)[:,np.newaxis]*self.y_norm)
                 +self.coastline[index_perp][:,1]).T
         # Gridded perpendicular vector at [x,y]
-        x_perp_all=(np.squeeze(np.linspace(0,scale,self.length/self.n)[:,np.newaxis]*self.x_perp)
+        x_perp_all=(np.squeeze(np.linspace(0,scale,self.length//self.n)[:,np.newaxis]*self.x_perp)
                 +self.coastline[index_perp][:,0]).T+shift
-        y_perp_all=(np.squeeze(np.linspace(0,scale,self.length/self.n )[:,np.newaxis]*self.y_perp)
+        y_perp_all=(np.squeeze(np.linspace(0,scale,self.length//self.n )[:,np.newaxis]*self.y_perp)
                 +self.coastline[index_perp][:,1]).T
         # Gridded perpendicular vector at [x+diff(x)/2,y+diff(y)/2]
         x_perp = x_perp_all[:,:-1]+np.diff(x_perp_all)/2

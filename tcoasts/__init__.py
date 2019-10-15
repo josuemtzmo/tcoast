@@ -1,7 +1,7 @@
 '''
 tcoast is written in Python.
-See README.md for an overview and how to install the module. 
-Additionally few examples and manual are provided to facilitate the use.
+See README.md for an overview and how to install the package. 
+Few examples are provided to facilitate the use of the package.
 A user manual for tcoast is available online.
 Modules available in tcoast include:
 * tcoasts.py
