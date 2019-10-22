@@ -140,7 +140,7 @@ class TransportAlongCoast(object):
     # data exits. If file exists it will load the contents, otherwise, it will 
     # interpolate the data.
     @_file_exists
-    def inter2vector(self,ufiles='U.*.nc',vfiles='V.*.nc',tracerfile=None,dataset=None,save=True,**kwargs):
+    def inter2vector(self,ufiles='U.*.nc',vfiles='V.*.nc',tracerfile=None,dataset=None,save=True,shift=360,**kwargs):
         '''
         **kwargs inter2vector supports the all the  kwargs of xr.open_mfdataset.
         '''
@@ -151,13 +151,9 @@ class TransportAlongCoast(object):
             xr_openmf_defaults.update(kwargs)
 
         print('Opening velocity files')
-        if dataset != None:
-            # Load data.
-            u = self.loaddata(file=ufiles,var='U',dataset=dataset,**xr_openmf_defaults)
-            v = self.loaddata(file=vfiles,var='V',dataset=dataset,**xr_openmf_defaults)
-        else:
-            u = dataset.U
-            v = dataset.V
+        # Load data.
+        u = self.loaddata(file=ufiles,var='U',dataset=dataset,**xr_openmf_defaults)
+        v = self.loaddata(file=vfiles,var='V',dataset=dataset,**xr_openmf_defaults)
         # Make sure the shape of the velocity fields are the same.
         if u.shape != v.shape:
             raise ValueError('The velocity fields should have the same shape.')
@@ -170,7 +166,7 @@ class TransportAlongCoast(object):
         y = xr.DataArray(y_perp, dims=('transect','n'))
         # Define limits to slice data.
         deltax    = 2*max((abs(x_perp[:,0]-x_perp[:,1])))
-        slicevalx = [360+x_perp.min()-deltax,360+x_perp.max()+deltax]
+        slicevalx = [shift+x_perp.min()-deltax,shift+x_perp.max()+deltax]
         deltay    = 2*max((abs(y_perp[:,0]-y_perp[:,1])))
         slicevaly = [y_perp.min()-deltay,y_perp.max()+deltay]
         # Slice data to reduce memory issues.
@@ -180,9 +176,9 @@ class TransportAlongCoast(object):
         # Note that fields can not contain nans
         # TO DO: Add support for data containing nans.
         print('Interpolating velocity fields')
-        interp_u = u.interp(lon=360+x,lat=y).compute()
+        interp_u = u.interp(lon=shift+x,lat=y).compute()
         interp_u = interp_u.where(interp_u!=0,np.nan)
-        interp_v = v.interp(lon=360+x,lat=y).compute()
+        interp_v = v.interp(lon=shift+x,lat=y).compute()
         interp_v = interp_v.where(interp_v!=0,np.nan)
         # Merge datasets
         self.interp_data=xr.merge([interp_u.to_dataset(name='u'), interp_v.to_dataset(name='v')])
@@ -191,7 +187,7 @@ class TransportAlongCoast(object):
             print('Loadng and interpolating tracer')
             tracer = self.loaddata(file=tracerfile,var='Tracer',dataset=dataset,**xr_openmf_defaults)
             tracer = tracer.sel({'lon':slice(slicevalx[0],slicevalx[1]),'lat':slice(slicevaly[0],slicevaly[1])})
-            interp_tracer = tracer.interp(lon=360+x,lat=y).compute()
+            interp_tracer = tracer.interp(lon=shift+x,lat=y).compute()
             interp_tracer = interp_tracer.where(interp_tracer!=0,np.nan)
             self.interp_data   = xr.merge([interp_u.to_dataset(name='u'), interp_v.to_dataset(name='v'),
                                   interp_tracer.to_dataset(name='tracer')])
@@ -278,12 +274,12 @@ class TransportAlongCoast(object):
                                 dataset should contain a dataset with a variable 
                                 containing the string defined as var.
                              ''')
-        elif file != None and dataset == None:
+        elif file != None and type(dataset) == 'NoneType':
             results = subprocess.check_output(['find', self.path, '-name', file])
             results=[s for s in results.decode('utf-8').split()]
             results.sort()
             data=xr.open_mfdataset(results,**kwargs)
-        elif dataset != None and file == None:
+        elif dataset != None:
             data=dataset
         else:
             raise ValueError('Only on of the arguments [file or dataset] can be defined.')
