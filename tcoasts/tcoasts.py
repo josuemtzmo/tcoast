@@ -176,9 +176,9 @@ class TransportAlongCoast(object):
         # Note that fields can not contain nans
         # TO DO: Add support for data containing nans.
         print('Interpolating velocity fields')
-        interp_u = u.interp(lon=shift+x,lat=y).compute()
+        interp_u = u.chunk({'time':10,'depth':25,'lat':len(u.lat),'lon':len(u.lon)}).interp(lon=shift+x,lat=y).compute()
         interp_u = interp_u.where(interp_u!=0,np.nan)
-        interp_v = v.interp(lon=shift+x,lat=y).compute()
+        interp_v = v.chunk({'time':10,'depth':25,'lat':len(v.lat),'lon':len(v.lon)}).interp(lon=shift+x,lat=y).compute()
         interp_v = interp_v.where(interp_v!=0,np.nan)
         # Merge datasets
         self.interp_data=xr.merge([interp_u.to_dataset(name='u'), interp_v.to_dataset(name='v')])
@@ -205,7 +205,10 @@ class TransportAlongCoast(object):
         # xr.DataArray 2 multiply with field.
         depth=(xr.zeros_like(self.interp_data.u.isel(time=0))+self.interp_data.depth)
         # Mask depth to only contain values larger than index.
-        depth=depth.where(depth > depth_index,np.nan)
+        if depth.all() < 0:
+            depth=depth.where(depth > depth_index,np.nan)
+        else:
+            depth=depth.where(depth < depth_index,np.nan)
         # Delta depth to compute area
         delta_depth=depth.diff(dim='depth')
         return delta_depth
