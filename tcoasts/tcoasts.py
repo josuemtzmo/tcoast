@@ -151,9 +151,13 @@ class TransportAlongCoast(object):
             xr_openmf_defaults.update(kwargs)
 
         print('Opening velocity files')
-        # Load data.
-        u = self.loaddata(file=ufiles,var='U',dataset=dataset,**xr_openmf_defaults)
-        v = self.loaddata(file=vfiles,var='V',dataset=dataset,**xr_openmf_defaults)
+        if dataset != None:
+            # Load data.
+            u = self.loaddata(file=ufiles,var='U',dataset=dataset,**xr_openmf_defaults)
+            v = self.loaddata(file=vfiles,var='V',dataset=dataset,**xr_openmf_defaults)
+        else:
+            u = dataset.U
+            v = dataset.V
         # Make sure the shape of the velocity fields are the same.
         if u.shape != v.shape:
             raise ValueError('The velocity fields should have the same shape.')
