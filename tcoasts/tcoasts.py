@@ -205,10 +205,7 @@ class TransportAlongCoast(object):
         # xr.DataArray 2 multiply with field.
         depth=(xr.zeros_like(self.interp_data.u.isel(time=0))+self.interp_data.depth)
         # Mask depth to only contain values larger than index.
-        if depth.all() < 0:
-            depth=depth.where(depth > depth_index,np.nan)
-        else:
-            depth=depth.where(depth < depth_index,np.nan)
+        depth=depth.where(depth > depth_index,np.nan)
         # Delta depth to compute area
         delta_depth=depth.diff(dim='depth')
         return delta_depth
@@ -277,7 +274,7 @@ class TransportAlongCoast(object):
                                 dataset should contain a dataset with a variable 
                                 containing the string defined as var.
                              ''')
-        elif file != None and type(dataset) == 'NoneType':
+        elif file != None and (type(dataset) == 'NoneType' or dataset==None):
             results = subprocess.check_output(['find', self.path, '-name', file])
             results=[s for s in results.decode('utf-8').split()]
             results.sort()
@@ -285,7 +282,7 @@ class TransportAlongCoast(object):
         elif dataset != None:
             data=dataset
         else:
-            raise ValueError('Only on of the arguments [file or dataset] can be defined.')
+            raise ValueError('Only one of the arguments [file or dataset] can be defined.')
         # Extract variables from dataset
         varname= [key for key,items in data.data_vars.items()]
         # Rename variable for easier manipulation.
